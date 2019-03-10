@@ -68,7 +68,7 @@ proc vTclWindow.top37 {base} {
         -background {#cdd886} -highlightbackground {#d9d9d9} \
         -highlightcolor black 
     wm focusmodel $top passive
-    wm geometry $top 1227x815+330+122
+    wm geometry $top 1227x815+332+109
     update
     # set in toplevel.wgt.
     global vTcl
@@ -79,7 +79,7 @@ proc vTclWindow.top37 {base} {
     wm overrideredirect $top 0
     wm resizable $top 1 1
     wm deiconify $top
-    wm title $top "'Excel'ator"
+    wm title $top "'Excel'ator by Naga Sai Nikhil"
     vTcl:DefineAlias "$top" "Toplevel1" vTcl:Toplevel:WidgetProc "" 1
     ttk::entry $top.tEn38 \
         -foreground {} -background {} -takefocus {} -cursor ibeam 
@@ -118,8 +118,10 @@ proc vTclWindow.top37 {base} {
         -command getfullrow -takefocus {} -text {Get Entire Row} 
     vTcl:DefineAlias "$top.tBu41" "getentirerow" vTcl:WidgetProc "Toplevel1" 1
     label $top.lab43 \
+        -activebackground {#f9f9f9} -activeforeground black \
         -background {#cdd886} -disabledforeground {#a3a3a3} \
-        -foreground {#000000} -text OR 
+        -foreground {#000000} -highlightbackground {#d9d9d9} \
+        -highlightcolor black -text OR 
     vTcl:DefineAlias "$top.lab43" "Label2" vTcl:WidgetProc "Toplevel1" 1
     ttk::entry $top.tEn44 \
         -foreground {} -background {} -takefocus {} -cursor ibeam 
@@ -140,14 +142,139 @@ proc vTclWindow.top37 {base} {
     vTcl:DefineAlias "$top.tLa47" "TLabel5" vTcl:WidgetProc "Toplevel1" 1
     ttk::entry $top.tEn48 \
         -foreground {} -background {} -takefocus {} -cursor ibeam 
-    vTcl:DefineAlias "$top.tEn48" "TEntry3" vTcl:WidgetProc "Toplevel1" 1
+    vTcl:DefineAlias "$top.tEn48" "old" vTcl:WidgetProc "Toplevel1" 1
     ttk::label $top.tLa49 \
         -background {#cdd886} -foreground {#000000} -font TkDefaultFont \
         -relief flat -text new: 
     vTcl:DefineAlias "$top.tLa49" "TLabel6" vTcl:WidgetProc "Toplevel1" 1
     ttk::entry $top.tEn50 \
         -foreground {} -background {} -takefocus {} -cursor ibeam 
-    vTcl:DefineAlias "$top.tEn50" "TEntry4" vTcl:WidgetProc "Toplevel1" 1
+    vTcl:DefineAlias "$top.tEn50" "new" vTcl:WidgetProc "Toplevel1" 1
+    ttk::style configure TButton -background #d9d9d9
+    ttk::style configure TButton -foreground #000000
+    ttk::style configure TButton -font TkDefaultFont
+    ttk::button $top.tBu51 \
+        -command modifyvalue -takefocus {} -text Modify 
+    vTcl:DefineAlias "$top.tBu51" "TButton3" vTcl:WidgetProc "Toplevel1" 1
+    ttk::style configure TButton -background #d9d9d9
+    ttk::style configure TButton -foreground #000000
+    ttk::style configure TButton -font TkDefaultFont
+    ttk::button $top.tBu52 \
+        -command reverse_cols -takefocus {} -text {Reverse Columns} 
+    vTcl:DefineAlias "$top.tBu52" "TButton4" vTcl:WidgetProc "Toplevel1" 1
+    ttk::label $top.tLa53 \
+        -background {#cdd886} -foreground {#000000} -font TkDefaultFont \
+        -relief flat -text {Merge Cells} 
+    vTcl:DefineAlias "$top.tLa53" "TLabel7" vTcl:WidgetProc "Toplevel1" 1
+    ttk::label $top.tLa54 \
+        -background {#cdd886} -foreground {#000000} -font TkDefaultFont \
+        -relief flat -text {starting row:} 
+    vTcl:DefineAlias "$top.tLa54" "TLabel8" vTcl:WidgetProc "Toplevel1" 1
+    ttk::entry $top.tEn55 \
+        -foreground {} -background {} -takefocus {} -cursor ibeam 
+    vTcl:DefineAlias "$top.tEn55" "startrow" vTcl:WidgetProc "Toplevel1" 1
+    ttk::label $top.tLa56 \
+        -background {#cdd886} -foreground {#000000} -font TkDefaultFont \
+        -relief flat -text {ending row:} 
+    vTcl:DefineAlias "$top.tLa56" "TLabel9" vTcl:WidgetProc "Toplevel1" 1
+    ttk::entry $top.tEn57 \
+        -foreground {} -background {} -takefocus {} -cursor ibeam 
+    vTcl:DefineAlias "$top.tEn57" "endrow" vTcl:WidgetProc "Toplevel1" 1
+    ttk::label $top.tLa58 \
+        -background {#cdd886} -foreground {#000000} -font TkDefaultFont \
+        -relief flat -text {starting column:} 
+    vTcl:DefineAlias "$top.tLa58" "TLabel10" vTcl:WidgetProc "Toplevel1" 1
+    ttk::entry $top.tEn59 \
+        -foreground {} -background {} -takefocus {} -cursor ibeam 
+    vTcl:DefineAlias "$top.tEn59" "startcolumn" vTcl:WidgetProc "Toplevel1" 1
+    ttk::label $top.tLa60 \
+        -background {#cdd886} -foreground {#000000} -font TkDefaultFont \
+        -relief flat -text {ending column:} 
+    vTcl:DefineAlias "$top.tLa60" "TLabel11" vTcl:WidgetProc "Toplevel1" 1
+    ttk::entry $top.tLa60.tEn61 \
+        -foreground {} -background {} -takefocus {} -cursor ibeam 
+    vTcl:DefineAlias "$top.tLa60.tEn61" "TEntry8" vTcl:WidgetProc "Toplevel1" 1
+    ttk::entry $top.tEn62 \
+        -foreground {} -background {} -takefocus {} -cursor ibeam 
+    vTcl:DefineAlias "$top.tEn62" "endcolumn" vTcl:WidgetProc "Toplevel1" 1
+    ttk::style configure TButton -background #d9d9d9
+    ttk::style configure TButton -foreground #000000
+    ttk::style configure TButton -font TkDefaultFont
+    ttk::button $top.tBu63 \
+        -command mergecells -takefocus {} -text {Merge } 
+    vTcl:DefineAlias "$top.tBu63" "TButton5" vTcl:WidgetProc "Toplevel1" 1
+    label $top.lab38 \
+        -background {#cdd886} -disabledforeground {#a3a3a3} \
+        -foreground {#000000} -text {Set Active Sheet Name} 
+    vTcl:DefineAlias "$top.lab38" "Label3" vTcl:WidgetProc "Toplevel1" 1
+    label $top.lab40 \
+        -background {#cdd886} -disabledforeground {#a3a3a3} \
+        -foreground {#000000} -text Name: 
+    vTcl:DefineAlias "$top.lab40" "Label4" vTcl:WidgetProc "Toplevel1" 1
+    ttk::entry $top.tEn41 \
+        -foreground {} -background {} -takefocus {} -cursor ibeam 
+    vTcl:DefineAlias "$top.tEn41" "activesheetname" vTcl:WidgetProc "Toplevel1" 1
+    ttk::style configure TButton -background #d9d9d9
+    ttk::style configure TButton -foreground #000000
+    ttk::style configure TButton -font TkDefaultFont
+    ttk::button $top.tBu43 \
+        -command setactivesheetname -takefocus {} -text Set 
+    vTcl:DefineAlias "$top.tBu43" "TButton1" vTcl:WidgetProc "Toplevel1" 1
+    ttk::label $top.tLa44 \
+        -background {#cdd886} -foreground {#000000} -font TkDefaultFont \
+        -relief flat -text {Insert Image} 
+    vTcl:DefineAlias "$top.tLa44" "TLabel12" vTcl:WidgetProc "Toplevel1" 1
+    ttk::label $top.tLa45 \
+        -background {#cdd886} -foreground {#000000} -font TkDefaultFont \
+        -relief flat -text {Image path : } 
+    vTcl:DefineAlias "$top.tLa45" "TLabel13" vTcl:WidgetProc "Toplevel1" 1
+    ttk::entry $top.tEn46 \
+        -foreground {} -background {} -takefocus {} -cursor ibeam 
+    vTcl:DefineAlias "$top.tEn46" "imagepath" vTcl:WidgetProc "Toplevel1" 1
+    ttk::label $top.tLa48 \
+        -background {#cdd886} -foreground {#000000} -font TkDefaultFont \
+        -relief flat -text {at cell :} 
+    vTcl:DefineAlias "$top.tLa48" "TLabel14" vTcl:WidgetProc "Toplevel1" 1
+    ttk::entry $top.tEn49 \
+        -foreground {} -background {} -takefocus {} -cursor ibeam 
+    vTcl:DefineAlias "$top.tEn49" "atcell" vTcl:WidgetProc "Toplevel1" 1
+    ttk::style configure TButton -background #d9d9d9
+    ttk::style configure TButton -foreground #000000
+    ttk::style configure TButton -font TkDefaultFont
+    ttk::button $top.tBu53 \
+        -command insertimage -takefocus {} -text Insert 
+    vTcl:DefineAlias "$top.tBu53" "TButton6" vTcl:WidgetProc "Toplevel1" 1
+    ttk::label $top.tLa55 \
+        -background {#cdd886} -foreground {#000000} -font TkDefaultFont \
+        -relief flat -text {Set Font } 
+    vTcl:DefineAlias "$top.tLa55" "TLabel15" vTcl:WidgetProc "Toplevel1" 1
+    ttk::label $top.tLa57 \
+        -background {#cdd886} -foreground {#000000} -font TkDefaultFont \
+        -relief flat -text {Font Name: } 
+    vTcl:DefineAlias "$top.tLa57" "TLabel16" vTcl:WidgetProc "Toplevel1" 1
+    ttk::entry $top.tEn58 \
+        -foreground {} -background {} -takefocus {} -cursor ibeam 
+    vTcl:DefineAlias "$top.tEn58" "fontname" vTcl:WidgetProc "Toplevel1" 1
+    ttk::label $top.tLa59 \
+        -background {#cdd886} -foreground {#000000} -font TkDefaultFont \
+        -relief flat -text {Font Size :} 
+    vTcl:DefineAlias "$top.tLa59" "TLabel17" vTcl:WidgetProc "Toplevel1" 1
+    ttk::entry $top.tEn60 \
+        -foreground {} -background {} -takefocus {} -cursor ibeam 
+    vTcl:DefineAlias "$top.tEn60" "fontsize" vTcl:WidgetProc "Toplevel1" 1
+    ttk::style configure TButton -background #d9d9d9
+    ttk::style configure TButton -foreground #000000
+    ttk::style configure TButton -font TkDefaultFont
+    ttk::button $top.tBu61 \
+        -command setfont -takefocus {} -text Set 
+    vTcl:DefineAlias "$top.tBu61" "TButton7" vTcl:WidgetProc "Toplevel1" 1
+    ttk::style configure TCheckbutton -background #d9d9d9
+    ttk::style configure TCheckbutton -foreground #000000
+    ttk::style configure TCheckbutton -font TkDefaultFont
+    ttk::checkbutton $top.tCh62 \
+        -variable tch62 -command checked -takefocus {} -text {set all cells} \
+        -state disabled 
+    vTcl:DefineAlias "$top.tCh62" "TCheckbutton1" vTcl:WidgetProc "Toplevel1" 1
     ###################
     # SETTING GEOMETRY
     ###################
@@ -189,6 +316,77 @@ proc vTclWindow.top37 {base} {
     place $top.tEn50 \
         -in $top -x 290 -y 260 -width 186 -relwidth 0 -height 23 -relheight 0 \
         -anchor nw -bordermode ignore 
+    place $top.tBu51 \
+        -in $top -x 320 -y 300 -width 118 -relwidth 0 -height 37 -relheight 0 \
+        -anchor nw -bordermode ignore 
+    place $top.tBu52 \
+        -in $top -x 430 -y 30 -width 168 -relwidth 0 -height 57 -relheight 0 \
+        -anchor nw -bordermode ignore 
+    place $top.tLa53 \
+        -in $top -x 70 -y 450 -width 81 -relwidth 0 -height 31 -relheight 0 \
+        -anchor nw -bordermode ignore 
+    place $top.tLa54 \
+        -in $top -x 20 -y 510 -anchor nw -bordermode ignore 
+    place $top.tEn55 \
+        -in $top -x 110 -y 510 -width 96 -relwidth 0 -height 23 -relheight 0 \
+        -anchor nw -bordermode ignore 
+    place $top.tLa56 \
+        -in $top -x 20 -y 560 -anchor nw -bordermode ignore 
+    place $top.tEn57 \
+        -in $top -x 110 -y 560 -width 96 -relwidth 0 -height 23 -relheight 0 \
+        -anchor nw -bordermode ignore 
+    place $top.tLa58 \
+        -in $top -x 10 -y 610 -anchor nw -bordermode ignore 
+    place $top.tEn59 \
+        -in $top -x 120 -y 610 -width 96 -relwidth 0 -height 23 -relheight 0 \
+        -anchor nw -bordermode ignore 
+    place $top.tLa60 \
+        -in $top -x 10 -y 650 -anchor nw -bordermode ignore 
+    place $top.tLa60.tEn61 \
+        -in $top.tLa60 -x 190 -y 0 -anchor nw -bordermode ignore 
+    place $top.tEn62 \
+        -in $top -x 120 -y 650 -width 96 -relwidth 0 -height 23 -relheight 0 \
+        -anchor nw -bordermode ignore 
+    place $top.tBu63 \
+        -in $top -x 50 -y 690 -width 108 -relwidth 0 -height 37 -relheight 0 \
+        -anchor nw -bordermode ignore 
+    place $top.lab38 \
+        -in $top -x 570 -y 180 -anchor nw -bordermode ignore 
+    place $top.lab40 \
+        -in $top -x 520 -y 220 -anchor nw -bordermode ignore 
+    place $top.tEn41 \
+        -in $top -x 580 -y 220 -anchor nw -bordermode ignore 
+    place $top.tBu43 \
+        -in $top -x 600 -y 260 -anchor nw -bordermode ignore 
+    place $top.tLa44 \
+        -in $top -x 370 -y 450 -anchor nw -bordermode ignore 
+    place $top.tLa45 \
+        -in $top -x 250 -y 510 -anchor nw -bordermode ignore 
+    place $top.tEn46 \
+        -in $top -x 340 -y 510 -width 166 -relwidth 0 -height 23 -relheight 0 \
+        -anchor nw -bordermode ignore 
+    place $top.tLa48 \
+        -in $top -x 270 -y 550 -anchor nw -bordermode ignore 
+    place $top.tEn49 \
+        -in $top -x 340 -y 550 -anchor nw -bordermode ignore 
+    place $top.tBu53 \
+        -in $top -x 330 -y 600 -width 128 -relwidth 0 -height 47 -relheight 0 \
+        -anchor nw -bordermode ignore 
+    place $top.tLa55 \
+        -in $top -x 650 -y 450 -anchor nw -bordermode ignore 
+    place $top.tLa57 \
+        -in $top -x 550 -y 510 -anchor nw -bordermode ignore 
+    place $top.tEn58 \
+        -in $top -x 640 -y 510 -anchor nw -bordermode ignore 
+    place $top.tLa59 \
+        -in $top -x 550 -y 550 -anchor nw -bordermode ignore 
+    place $top.tEn60 \
+        -in $top -x 640 -y 550 -anchor nw -bordermode ignore 
+    place $top.tBu61 \
+        -in $top -x 640 -y 640 -width 128 -relwidth 0 -height 47 -relheight 0 \
+        -anchor nw -bordermode ignore 
+    place $top.tCh62 \
+        -in $top -x 640 -y 600 -anchor nw -bordermode ignore 
 
     vTcl:FireEvent $base <<Ready>>
 }

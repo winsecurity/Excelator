@@ -8,6 +8,7 @@
 
 import sys
 import openpyxl
+from openpyxl.drawing.image import Image
 try:
     from Tkinter import *
 except ImportError:
@@ -19,6 +20,41 @@ try:
 except ImportError:
     import tkinter.ttk as ttk
     py3 = True
+
+def setfont():
+    location=w.path.get()
+    wb=openpyxl.load_workbook(location)
+    ws1=wb.active
+    fname=w.fontname.get()
+    fsize=w.fontsize.get()
+
+    for each_row in range(1,ws1.max_row+1):
+        for each_column in range(1,ws1.max_column+1):
+            cell1=ws1.cell(row=each_row,column=each_column)
+            cell1.font=openpyxl.styles.Font(name=fname,size=fsize)
+    wb.save(location)
+
+def setactivesheetname():
+    name=w.activesheetname.get()
+    location=w.path.get()
+    wb=openpyxl.load_workbook(location)
+    ws1=wb.active
+    ws1.title=name
+    wb.save(location)
+    sys.stdout.flush()
+
+def insertimage():
+    location=w.path.get()
+    wb=openpyxl.load_workbook(location)
+    ws1=wb.active
+    imgpath=w.imagepath.get()
+    cell1=w.atcell.get()
+    
+    img=openpyxl.drawing.image.Image(imgpath)
+    #img.anchor(ws1.cell(cell1))
+    ws1.add_image(img,cell1)
+    wb.save(location)
+    sys.stdout.flush()
 
 def reverse_cols():
     location=w.path.get()
@@ -39,6 +75,21 @@ def reverse_cols():
 
     wb.save(location)
     sys.stdout.flush()       
+
+
+def mergecells():
+    location=w.path.get()
+    wb=openpyxl.load_workbook(location) 
+    ws1=wb.active
+    row1=w.startrow.get()
+    row2=w.endrow.get()
+    col1=w.startcolumn.get()
+    col2=w.endcolumn.get()
+
+    ws1.merge_cells(start_row=row1,start_column=col1,end_row=row2,end_column=col2)
+    wb.save(location)
+
+    sys.stdout.flush()
 
 
 
